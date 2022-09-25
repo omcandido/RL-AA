@@ -1,0 +1,17 @@
+name: py39
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.9
+  - numpy
+  - pandas
+  - tqdm
+  - seaborn
+  - matplotlib
+  - networkx
+  - ipywidgets
+  - pip
+  - pip:
+    - gym
+    - gym[toy_text]
