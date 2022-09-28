@@ -1,4 +1,4 @@
-# Explaining Decisions in Reinforcement Learning Tasks Using Abstract Argumentation.
+# Explainable Online Reinforcement Learning Using Abstract Argumentation
 End-to-end reinforcement learning pipeline integrating abstract argumentation. This pipeline trains an agent to solve a reinforcement learning (RL) game and learn a value-based argumentation framework (VAF). The agent is fed an argumentation framework (AF) by the domain expert and it finds the best ordering of its arguments. The outcome is a fully symbolic model that uses a VAF as its inference engine.
 ## Getting started
 A good place to start is the supplied [demo](https://github.com/omcandido/RL-AA/blob/main/src/demo.ipynb). This is a jupyter notebook that will guide you through the basic components of the pipeline and will showcase many of the custom functions. The notebook is not properly rendered on GitHub, but you can download it and you should be able to interact with the saved renderings of the game without running the notebook again. Feel free to run the cells again and experiment with different options.
