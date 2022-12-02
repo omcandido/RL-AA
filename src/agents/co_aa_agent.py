@@ -83,7 +83,7 @@ class COAAAgent(Agent):
         """
 
 
-        mask = np.sum(next_state, axis=0) == len(next_state)
+        mask = np.sum(next_state, axis=1) == len(next_state)
         allowed_actions = np.argwhere(mask).flatten().tolist()
         # allowed_actions = None
         next_action = self.select_action(next_state, False, allowed_actions=allowed_actions)
@@ -92,7 +92,9 @@ class COAAAgent(Agent):
             self.w[state, action] += self.alpha * (reward - self.value(state, action))
             return None
 
-        self.w[state, action] += self.alpha * (reward + self.gamma * self.value(next_state, next_action) - self.value(state, action))
+        # self.w[state, action] += self.alpha * (reward + self.gamma * self.value(next_state, next_action) - self.value(state, action))
+        self.w[state, action] += self.alpha * (reward + self.gamma*self.state_value(next_state) - self.value(state, action))
+
         
         
         return next_action
@@ -105,9 +107,9 @@ class COAAAgent(Agent):
             list: the decoded ordered arguments
         """
         order = []
-        for i in range(len(self.args)):
+        for _ in range(len(self.args)):
             encoded_order = order_to_matrix(order, self.args, True)
-            mask = np.sum(encoded_order, axis=0) == len(encoded_order)
+            mask = np.sum(encoded_order, axis=1) == len(encoded_order)
             allowed_actions = np.argwhere(mask).flatten().tolist()
             action = self.select_action(encoded_order, is_greedy=True, allowed_actions=allowed_actions)
             order.append(self.args[action])

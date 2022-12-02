@@ -25,6 +25,9 @@ def order_to_matrix(
             column[indices_args[:i+1]] = 1
             mat[:,indices_args[i]] = column
 
+
+        mat = np.transpose(mat) # to be consistend with the formulation in the thesis
+
         if as_bool:
             return mat.astype(bool)
         return mat
