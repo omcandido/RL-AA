@@ -82,17 +82,17 @@ class COAATakeaway(gym.Env):
 
         with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as s:
             s.sendto("start".encode(), (self._send_host, self._send_port))
-            # print("Start sent")
+            print("Start sent")
 
 
         with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as s:
             s.bind((self._recv_host, self._recv_port))
             reward = ""
             while reward == "":
-                reward, addr = s.recvfrom(8)
+                reward, addr = s.recvfrom(16)
                 reward = float(reward.decode("utf-8"))
                 reward = - reward
-                # print("  Reward: %s" % str(reward))
+                print("  Reward: %s" % str(reward))
 
         return reward
 
