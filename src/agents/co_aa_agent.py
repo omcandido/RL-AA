@@ -12,7 +12,7 @@ class COAAAgent(Agent):
     Args:
         Agent (_type_): _description_
     """
-    def __init__(self, alpha: float, gamma: float, epsilon: float, args: List[str]):
+    def __init__(self, alpha: float, gamma: float, epsilon: float, args: List[str], lambd: float = 1):
         """Initialisatialise the COAAAgent.
 
         Args:
@@ -25,6 +25,10 @@ class COAAAgent(Agent):
         self.args = args
         self.W_SHAPE = (len(args), len(args), len(args))
         self.w = np.zeros(self.W_SHAPE)
+        self.z = np.zeros(self.W_SHAPE)
+        self.lambd = lambd
+
+
 
     # Return estimated action value of given state and action
     def value(self, state, action) -> float:
@@ -88,16 +92,21 @@ class COAAAgent(Agent):
         # allowed_actions = None
         next_action = self.select_action(next_state, False, allowed_actions=allowed_actions)
 
+        # target = reward + self.gamma * self.value(next_state, next_action)
+        target = reward + self.gamma * self.state_value(next_state)
         if done:
-            self.w[state, action] += self.alpha * (reward - self.value(state, action))
-            return None
+            target = reward 
 
-        # self.w[state, action] += self.alpha * (reward + self.gamma * self.value(next_state, next_action) - self.value(state, action))
-        self.w[state, action] += self.alpha * (reward + self.gamma*self.state_value(next_state) - self.value(state, action))
+        self.z *= self.gamma*self.lambd
+        # self.z[state, :] = 0
+        self.z[state, action] = 1
 
-        
+        self.w += self.alpha * (target - self.value(state, action))*self.z
         
         return next_action
+
+    def reset_traces(self):
+        self.z = np.zeros(self.W_SHAPE)
 
     @property
     def order(self) -> list:
