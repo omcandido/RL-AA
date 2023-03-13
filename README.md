@@ -1,5 +1,6 @@
+## NEW PROJECT
 For the improved version of this project, please check out [ORLA](https://github.com/omcandido/ORLA).
-
+____
 # Explainable Online Reinforcement Learning Using Abstract Argumentation
 End-to-end reinforcement learning pipeline integrating abstract argumentation. This pipeline trains an agent to solve a reinforcement learning (RL) game and learn a value-based argumentation framework (VAF). The agent is fed an argumentation framework (AF) by the domain expert and it finds the best ordering of its arguments. The outcome is a fully symbolic model that uses a VAF as its inference engine.
 ## Getting started
